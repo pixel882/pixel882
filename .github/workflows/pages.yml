@@ -1,0 +1,30 @@
+name: Publikacja po Release
+
+on:                     # kiedy workflow ma się uruchamiać
+  release:
+    types: [published]   # uruchom po opublikowaniu Release
+  workflow_dispatch:     # opcjonalnie: ręczne uruchomienie
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:                        # lista zadań workflow
+  deploy:                    # nazwa jedynego zadania
+    runs-on: ubuntu-latest   # maszyna wirtualna z Ubuntu
+    environment:             # środowisko wdrożeniowe wymagane przez Pages
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7   # pobiera kod repozytorium na maszynę
+      - uses: actions/configure-pages@v6    # przygotowuje konfigurację GitHub Pages
+      - uses: actions/upload-pages-artifact@v5  # pakuje pliki do artefaktu dla Pages
+        with:
+          path: .            # folder ze stroną (np. www)
+      - id: deployment
+        uses: actions/deploy-pages@v5  # publikuje artefakt na GH Pages
