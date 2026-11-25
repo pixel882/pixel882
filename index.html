@@ -1,80 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <style>
-        img {
-            border: 3px solid black;
-        }
-
-        #app {
-            display: flex;
-            flex-direction: row;
-        }
-
-        h3 {
-            color: rgb(40, 202, 148);
-        }
-    </style>
+    <title>Strona One Page</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div id="app">
-        <div>
-            <h1>Część pierwsza: iteracja po tabliach (v-for)</h1>
-            <h3>Pętla po prostych tablicach:</h3>
+    <header>
+        <nav>
             <ul>
-                <li v-for="item in array">{{ item }}</li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">O nas</a></li>
+                <li><a href="#services">Usługi</a></li>
+                <li><a href="#contact">Kontakt</a></li>
             </ul>
-            <h3>Tablica z indeksem (item, i):</h3>
-            <ul>
-                <li v-for="(item, i) in array2">{{ i }}: {{ item }}</li>
-            </ul>
-            <h3>Pętla po tablicy obiektów:</h3>
-            <ul>
-                <li v-for="(item, i) in arrayObjects"> {{ i }}{{ item.subject }} </li>
-            </ul>
-            <br>
-            <p>Uwaga: dodaj element do tablicy z poziomu konsoli js:</p>
-            <p>app.array.push('React')</p>
-        </div>
-        <div>
-            <h1>Część druga: iteracja po obiektach (v-for)</h1>
-            <h3>ul 1 - value key obiektu</h3>
-            <ul>
-                <li v-for="(val, key) in object">{{ key }}: {{ val }}</li>
-            </ul>
-            <h3>ul 2 - key value index obiektu</h3>
-            <ul>
-                <li v-for="(val, key, index) in object">{{ index }} - {{ key }}: {{ val }}</li>
-            </ul>
-        </div>
-    </div>
-    <script>
-        const app = Vue.createApp({
+        </nav>
+        <h1>Witaj na naszej stronie!</h1>
+    </header>
 
-            data() {
-                return {
-                    array: ['Vue.js', 'Node.js', 'Express.js'],
-                    array2: ['JavaScript', 'TypeScript', 'Kotlin', 'Java'],
-                    arrayObjects: [
-                        { subject: 'INF.03', grade: 5 },
-                        { subject: 'INF.04', grade: 6 },
-                        { subject: 'Bazy danych', grade: 5 }
-                    ],
-                    object: {
-                        host: 'localhost',
-                        port: 3000,
-                        db: 'PostgreSQL'
-                    }
-                }
-            }
-        }).mount("#app")
-    </script>
+    <section id="home">
+        <h2>Home</h2>
+        <p>To jest sekcja główna naszej strony.</p>
+    </section>
+
+    <section id="about">
+        <h2>O nas</h2>
+        <p>Informacje o naszej firmie.</p>
+    </section>
+
+    <section id="services">
+        <h2>Usługi</h2>
+        <p>Opis naszych usług.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Kontakt</h2>
+        <form>
+            <label for="name">Imię:</label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+            <input type="submit" value="Wyślij">
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Twoja Firma</p>
+    </footer>
+    
+    <script src="script.js"></script>
 </body>
-
 </html>
