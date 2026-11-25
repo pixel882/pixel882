@@ -1,168 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
-        .div1{
-            justify-content: center;
-            display: flex;
-        } 
-
-        table{ 
-            margin: 20px auto;
-            border-collapse: collapse;
+        img {
+            border: 3px solid black;
         }
-
-        td {
-            border: 1px solid black;
-            width: 40px;
-            height: 40px;
-        }
-
-        td,th {
-            border: 1px solid black;
-            width: 40px;
-            height: 40px;
-            font-weight: normal;
-        }
-
-
-
-        tr:not(:first-child) td:nth-child(6) a,
-        tr:not(:first-child) td:nth-child(7) a {
-        color: red;
-        }
-
-        a {
-         text-decoration: none;
-        }
-
     </style>
 </head>
+
 <body>
-    <div class="div1">
-    <form method="POST"> 
-        <select name="miesiac">
-            <option value="1"> Styczen </option>
-            <option value="2"> Luty </option>
-            <option value="3"> Marzec </option>
-            <option value="4"> Kwiecien </option>
-            <option value="5"> Maj </option>
-            <option value="6"> Czerwiec </option>
-            <option value="7"> Lipiec </option>
-            <option value="8"> Sierpien </option>
-            <option value="9"> Wrzesien </option>
-            <option value="10"> Pazdziernik </option>
-            <option value="11"> Listopad </option>
-            <option value="12"> Grudzien </option>
-        </select>    
-
-        <select name="rok">
-            <option value="2025"> 2025 </option>
-            <option value="2026"> 2026 </option>
-            <option value="2027"> 2027 </option>
-        </select>    
-
-        <Button type="submit">ZATWIERDZ</button>
-    </form>
-</div>
-    <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        date_default_timezone_set('Europe/Warsaw');
-        $miesiac = $_POST['miesiac'];
-        $rok = $_POST['rok'];
-        $liczba_dni = date('t', strtotime("$rok-$miesiac-01"));
-        $kratka = 0;
-        $pierwszy_dzien = date('N', strtotime("$rok-$miesiac-01"));
-
-
-        echo '<table>';
-        echo '<tr><td>Po</td><td>Wt</td><td>Śr</td><td>Cz</td><td>Pi</td><td>So</td><td>Ni</td></tr>';
-        echo '<tr>';
-
-
-        for ($i = 1; $i<$pierwszy_dzien; $i++) {
-            echo '<td></td>'; 
-            $kratka++;
-        }
-            
-
-
-
-
-            for ($dzien = 1; $dzien <= $liczba_dni; $dzien++){
-                echo "<td><a href='edit.php?day=$dzien&m=$miesiac&r=$rok'>$dzien</a></td>";
-                $kratka++;
-
-                    if ($kratka % 7 == 0) {
-                        echo '</tr><tr>';
-                    }
-            }
-
-            while ($kratka % 7 !== 0) {
-                echo '<td></td>';
-                $kratka++;
-            }
-
-
-
-
-        echo '</tr>';
-        echo '</table>';
-
-
-
-    }
-
-    ?>
-
-    <br>
-    <h1 class="div1">Twoje plany:</h1>
-    <?php
-        $rok_dzisiaj = date('r');
-
-
-
-    ?>
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     <style>
-        .div1{
-            justify-content: center;
-            display: flex;
-            text-align: center;
-        } 
-    </style>
-</head>
-<body>
-    <?php
-    print_r($_POST);
-    if(isset($_POST['zatwierdz'])) header("Location:kalendarz.php");
-?>
-    <h1 class="div1">Wpisz plany na dzisiejszy dzien:</h1>
-        <br>
-    <div class="div1">
-
-    <form action="" method="POST"> 
-
-        <textarea rows="4" cols="40" placeholder="wpisz tutaj..."></textarea>
-        <br>
-        <a href="kalendarz.php"><button type="button">Anuluj</button></a>
-
-        <Button type="submit" >SKASUJ</button>
-        <Br>
-        <Br>
-        <a href="kalendarz.php"><button type="submit" name='zatwierdz'>ZATWIERDZ</button></a>
-    </form>
+    <div id="app">
+        <div :style="{ fontSize: fontSize + 'px',  color: color, background: bg }">element</div>
+        <p>Zmień wielkość napisu:</p>
+        <input type="range" v-model="fontSize" min="20" max="100">
+        <p>Zmień kolor tła napisu</p>
+        <input type="color" v-model="bg">
+        <p>Zmień kolor napisu</p>
+        <input type="color" v-model="color">
     </div>
+    <script>
+        const app = Vue.createApp({
+
+            data() {
+                return {
+                    fontSize: 20,
+                    bg: "white",
+                    color: "black"
+                }
+            }
+        }).mount("#app")
+    </script>
 </body>
+
 </html>
